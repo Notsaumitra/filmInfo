@@ -1,0 +1,79 @@
+
+<div class="conatiner-fluid" style="background-color:rgb(83, 136, 180)">
+    <p class="d-flex justify-content-center" style="font-size: 50px; color:powderblue;">Directors</p>
+    <hr />
+    <div class="row p-2">
+        <div class="col-6">
+            <ul *ngFor="let direct of directors">
+                <li style="list-style: none; border: solid 2px; border-radius: 5px; 
+                background-color: #e3f2fd;" class="p-4">
+                    <h2>
+                        {{direct.name}}
+                    </h2>
+                    <h4>Age : {{direct.age}}</h4>
+                    <span>Gender : {{direct.gender}}</span>
+                    <p>Number of Awards : {{direct.awards}}</p>
+
+                    <a class="action-btn float-right" routerLink="/update/{{direct._id}}">
+                        <i class="fas fa-edit" ></i>
+                      </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-5 ml-4">
+            <form class="p-2" [formGroup]="register" (ngSubmit)="onSubmit(register)"
+                style="border:solid 2px; border-radius: 4px; background-color: #e3f2fd;" *ngIf=display>
+
+
+                
+                <div class="form-group p-2 mt-3">
+                    <label for="name1">Director Name</label>
+                    <input [class.is-invalid]="name.invalid && name.touched" required formControlName="name" type="text"
+                        class="form-control" id="name1">
+                    <div *ngIf="name.invalid && name.touched">
+                        <small *ngIf="name.errors?.required" class="text-danger"
+                            [class.d-none]="name.valid || name.untouched">Director name is
+                            required</small>
+                    </div>
+                </div>
+
+                <div class="form-group p-2 mt-3">
+                    <label for="box1">Age</label>
+                    <input [class.is-invalid]="age.invalid && age.touched"
+                        formControlName="age" type="text" class="form-control" id="box1">
+                    <div *ngIf="age.invalid && age.touched">
+                        <small *ngIf="age.errors?.required" class="text-danger"
+                            [class.d-none]="age.valid || age.untouched">Age is required</small>
+                    </div>
+                </div>
+                
+                <div class="form-group p-2 mt-3">
+                    <label for="gen1">Gender</label>
+                    <select id="gen1" formControlName="gender" class="custom-select form-control" required>
+                        <option value="">Select Gender</option>
+                        <option *ngFor="let o of gen">{{ o }}</option>
+                    </select>
+                    <div *ngIf="gender.invalid && gender.touched">
+                        <small *ngIf="gender.errors?.required" class="text-danger"
+                            [class.d-none]="gender.valid || gender.untouched">Gender is required</small>
+                    </div>
+                </div>
+                <div class="form-group p-2 mt-3">
+                    <label for="awards1">Number of Awards</label>
+                    <input type="text" formControlName="awards" id="awards1" class="form-control">
+                    <div *ngIf="awards.invalid && awards.touched">
+                        <small *ngIf="awards.errors?.required" class="text-danger"
+                            [class.d-none]="awards.valid || awards.untouched">Awards is required, If none, enter 0</small>
+                    </div>
+                </div>
+                <div class="form-group mt-3 p-2">
+                    <button class="btn btn-dark" type="submit" [disabled]="!register.valid">Add Director</button>
+                </div>
+            </form>
+
+        
+        </div>
+    </div>
+
+</div>

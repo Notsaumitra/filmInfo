@@ -1,0 +1,85 @@
+<div class="conatiner-fluid" style="background-color:rgb(83, 136, 180);">
+    <p class="d-flex justify-content-center" style="font-size: 50px; color:powderblue;">Your Movies</p>
+    <hr />
+    <div class="row p-2">
+        <div class="col-6">
+            <ul *ngFor="let movie of films">
+                <li style="list-style: none; border: solid 2px; border-radius: 5px; 
+                background-color: #e3f2fd;" class="p-4">
+                    <h2>
+                        {{movie.name}}
+                    </h2>
+                    <h4>Rating : {{movie.rating}}/10</h4>
+                    <span>Total Earning : {{movie.boxOfficeCollection}} Cr.</span>
+                    <p>Director Name: {{movie.director}}</p>
+
+                    <a class="action-btn float-right" (click)="delFilm(movie.name)">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-5 ml-4">
+            <form class="p-2" [formGroup]="register" (ngSubmit)="onSubmit(register)"
+                style="border:solid 2px; border-radius: 4px; background-color: #e3f2fd;">
+
+
+                <div class="form-group p-2 mt-3">
+                    <label for="id1">Movie Id</label>
+                    <input required formControlName="_id" type="text" [class.is-invalid]="_id.invalid && _id.touched"
+                        class="form-control" id="id1">
+                    <div *ngIf="_id.invalid && _id.touched">
+                        <small *ngIf="_id.errors?.required" class="text-danger">Movie Id is
+                            required</small>
+                    </div>
+                </div>
+                <div class="form-group p-2 mt-3">
+                    <label for="name1">Movie Name</label>
+                    <input [class.is-invalid]="name.invalid && name.touched" required formControlName="name" type="text"
+                        class="form-control" id="name1">
+                    <div *ngIf="name.invalid && name.touched">
+                        <small *ngIf="name.errors?.required" class="text-danger"
+                            [class.d-none]="name.valid || name.untouched">Movie name is
+                            required</small>
+                    </div>
+                </div>
+
+                <div class="form-group p-2 mt-3">
+                    <label for="box1">Box Office Collection in Crores</label>
+                    <input [class.is-invalid]="boxOfficeCollection.invalid && boxOfficeCollection.touched"
+                        formControlName="boxOfficeCollection" type="text" class="form-control" id="box1">
+                    <div *ngIf="boxOfficeCollection.invalid && boxOfficeCollection.touched">
+                        <small *ngIf="boxOfficeCollection.errors?.required" class="text-danger"
+                            [class.d-none]="boxOfficeCollection.valid || boxOfficeCollection.untouched">Box Office
+                            Collection is required</small>
+                    </div>
+                </div>
+                <div class="form-group p-2 mt-3">
+                    <label for="rating1">Rating (out of 10)</label>
+                    <input type="text" formControlName="rating" id="rating1" class="form-control">
+                    <div *ngIf="rating.invalid && rating.touched">
+                        <small *ngIf="rating.errors?.required" class="text-danger"
+                            [class.d-none]="rating.valid || rating.untouched">Rating is required</small>
+                    </div>
+                </div>
+                <div class="form-group p-2 mt-3">
+                    <label for="dir1">Director Name</label>
+                    <select required id="pay1" formControlName="director" class="custom-select form-control">
+                        <option value="">Select a director name</option>
+                        <option *ngFor="let o of dirNames">{{ o }}</option>
+                    </select>
+                    <div *ngIf="director.invalid && director.touched">
+                        <small *ngIf="director.errors?.required" class="text-danger"
+                            [class.d-none]="director.valid || director.untouched">Director name is required</small>
+                    </div>
+                </div>
+                <div class="form-group mt-3 p-2">
+                    <button class="btn btn-dark" type="submit" [disabled]="!register.valid">Add Movie</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</div>

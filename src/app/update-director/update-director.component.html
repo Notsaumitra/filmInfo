@@ -1,0 +1,37 @@
+<form class="p-2" [formGroup]="updateDirector" (ngSubmit)="onSubmit(updateDirector)"
+            style=" border:solid 2px; border-radius: 4px; background-color: #e3f2fd;">
+
+    <div class="form-group p-2 mt-3">
+        <label for="name1">Director Name</label>
+        <input [readonly]="this.isEditable" required formControlName="name" type="text"
+                        class="form-control" id="name1">
+    </div>
+
+
+    <div class="form-group p-2 mt-3">
+        <label for="box1">Age</label>
+        <input [class.is-invalid]="age.invalid && age.touched" formControlName="age" type="text" class="form-control"
+            id="box1">
+        <div *ngIf="age.invalid && age.touched">
+            <small *ngIf="age.errors?.required" class="text-danger" [class.d-none]="age.valid || age.untouched">Age is
+                required</small>
+        </div>
+    </div>
+
+    <div class="form-group p-2 mt-3">
+        <label for="gen1">Gender</label>
+        <input type="text" formControlName="gender" class="form-control" id="gen1" [readonly]="this.isEditable">
+        
+    </div>
+    <div class="form-group p-2 mt-3">
+        <label for="awards1">Number of Awards</label>
+        <input type="text" formControlName="awards" id="awards1" class="form-control">
+        <div *ngIf="awards.invalid && awards.touched">
+            <small *ngIf="awards.errors?.required" class="text-danger"
+                [class.d-none]="awards.valid || awards.untouched">Awards is required, If none, enter 0</small>
+        </div>
+    </div>
+    <div class="form-group mt-3 p-2">
+        <button class="btn btn-dark" type="submit" [disabled]="!updateDirector.valid">Edit</button>
+    </div>
+</form>
